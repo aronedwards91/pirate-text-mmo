@@ -16,7 +16,7 @@ export const BackgroundKey = {
 } as const;
 export type Background = (typeof BackgroundKey)[keyof typeof BackgroundKey];
 
-export const background: Record<Background, BackgroundData> = {
+export const backgrounds: Record<Background, BackgroundData> = {
   [BackgroundKey.urchin]: {
     title: "Urchin",
     description:
