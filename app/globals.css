@@ -40,3 +40,19 @@
     transform: translateY(0);
   }
 }
+
+.corner-mark {
+  position: relative;
+}
+.corner-mark::before {
+  display: inline-block;
+  background: url("/corner.webp") no-repeat 0 0;;
+  background-size: 100%;
+  position: absolute;
+  height: 12px;
+  width: 12px;
+  top: -4px;
+  left: -4px;
+  z-index: 10;
+  content: '';
+}
