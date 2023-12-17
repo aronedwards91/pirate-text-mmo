@@ -54,6 +54,7 @@ export const createClient = (request: NextRequest) => {
           })
         },
       },
+      db: { schema: 'userdata' }
     }
   )
 

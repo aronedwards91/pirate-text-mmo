@@ -29,6 +29,7 @@ export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
           }
         },
       },
-    }
+      db: { schema: 'userdata' }
+    },
   )
 }
