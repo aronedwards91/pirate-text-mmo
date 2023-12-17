@@ -46,7 +46,7 @@
 }
 .corner-mark::before {
   display: inline-block;
-  background: url("/corner.webp") no-repeat 0 0;;
+  background: url("/corner.webp") no-repeat 0 0;
   background-size: 100%;
   position: absolute;
   height: 12px;
@@ -54,5 +54,23 @@
   top: -4px;
   left: -4px;
   z-index: 10;
-  content: '';
+  content: "";
+}
+
+.corner-cut {
+  min-height: 192px;
+  clip-path: polygon(
+    0 48px,
+    48px 0,
+    calc(100% - 48px) 0,
+    100% 48px,
+    100% calc(100% - 48px),
+    calc(100% - 48px) 100%,
+    48px 100%,
+    0 calc(100% - 48px)
+  );
+}
+
+.font-big {
+  font-family: var(--font-audiowide);
 }

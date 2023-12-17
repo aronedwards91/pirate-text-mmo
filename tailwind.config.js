@@ -1,8 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./containers/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -22,15 +24,17 @@ module.exports = {
         },
         rust: {
           DEFAULT: "#A3471A",
-          100: "#200e05",
-          200: "#411d0b",
-          300: "#612b10",
-          400: "#823915",
-          500: "#a3471a",
-          600: "#da6023",
-          700: "#e48759",
-          800: "#edaf90",
-          900: "#f6d7c8",
+          50: "#fdf8ed",
+          100: "#f9ebcc",
+          200: "#f2d595",
+          300: "#ebbb5e",
+          400: "#e6a439",
+          500: "#de8422",
+          600: "#c4641b",
+          700: "#a3471a",
+          800: "#85381b",
+          900: "#6e2f19",
+          950: "#3e170a",
         },
         caput_mortuum: {
           DEFAULT: "#572114",
@@ -45,7 +49,17 @@ module.exports = {
           900: "#f0c7bd",
         },
       },
+      typography:  (theme) => ({
+        DEFAULT: {
+          css: {
+            color: theme('colors.slate.900'),
+            p: {
+              color: theme('colors.black'),
+            },
+          },
+        },
+      }),
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
