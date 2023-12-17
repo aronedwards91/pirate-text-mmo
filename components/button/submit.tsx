@@ -12,7 +12,7 @@ export function SubmitButton({
       onClick={onClick}
       className={`text-sm text-white tracking-wide
     font-big font-normal
-    border-x-2 border-sand-400 px-6 py-3 
+    border-x-2 border-sand-400 px-6 py-3 w-min
   bg-sand-700
     shadow-inner-2xl hover:shadow-inner-lg
     transition-all`}

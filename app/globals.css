@@ -85,3 +85,47 @@
 .font-big {
   font-family: var(--font-audiowide);
 }
+
+.corner-cut-line {
+  @apply relative border border-sand-400;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 1.5em) 0,
+    100% 1.5em,
+    100% 100%,
+    1.5em 100%,
+    0 calc(100% - 1.5em)
+  );
+}
+.corner-cut-line .border-b {
+  @apply border-sand-400 h-12;
+}
+.corner-cut-line::before,
+.corner-cut-line::after
+ {
+  position: absolute;
+  content: "";
+  width: 1.5em;
+  height: 1.5em;
+  z-index: 1;
+ }
+.corner-cut-line::before {
+  top: -1px;
+  right: -1px;
+  background: linear-gradient(
+    to top right,
+    transparent calc(50% - 2px),
+    theme('colors.sand.500') 0,
+    transparent calc(50% + 1px)
+  );
+}
+.corner-cut-line::after{
+  bottom: -1px;
+  left: -1px;
+  background: linear-gradient(
+    to bottom left,
+    transparent calc(50% - 2px),
+    theme('colors.sand.500') 0,
+    transparent calc(50% + 1px)
+  );
+}
