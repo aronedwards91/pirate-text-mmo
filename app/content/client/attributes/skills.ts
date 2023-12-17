@@ -21,4 +21,5 @@ export type SkillData = {
   label: string;
   short: string;
   description: string;
+  icon: string;
 };

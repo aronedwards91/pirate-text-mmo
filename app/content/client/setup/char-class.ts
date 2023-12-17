@@ -6,7 +6,6 @@ export type CharClassData = {
   title: string;
   description: string;
   bonuses: SkillAdjust[];
-  allowedFactions: Faction[];
   icon: string;
 };
 
@@ -31,7 +30,6 @@ export const charClass: Record<CharClass, CharClassData> = {
       { skillId: SkillIDKey.TechRanged, value: -5 },
       { skillId: SkillIDKey.SoftwareTech, value: -5 },
     ],
-    allowedFactions: [FactionKey.churchMachine, FactionKey.unityParadigm],
     icon: "",
   },
   [CharClassKey.Marksman]: {
@@ -46,11 +44,6 @@ export const charClass: Record<CharClass, CharClassData> = {
       { skillId: SkillIDKey.TradMelee, value: -5 },
       { skillId: SkillIDKey.Charisma, value: -5 },
       { skillId: SkillIDKey.Rhetoric, value: -5 },
-    ],
-    allowedFactions: [
-      FactionKey.churchMachine,
-      FactionKey.unityParadigm,
-      FactionKey.moonsRebirth,
     ],
     icon: "",
   },
@@ -67,7 +60,6 @@ export const charClass: Record<CharClass, CharClassData> = {
       { skillId: SkillIDKey.TechRanged, value: -5 },
       { skillId: SkillIDKey.CyberwearIntegration, value: -5 },
     ],
-    allowedFactions: [FactionKey.unityParadigm, FactionKey.moonsRebirth],
     icon: "",
   },
 };
