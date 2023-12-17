@@ -10,6 +10,9 @@ export const SkillIDKey = {
   Rhetoric: "Rhetoric",
   Charisma: "Charisma",
   Intimidation: "Intimidation",
+  RedMoonHarmony: "RedMoonHarmony",
+  BlueMoonSynergy: "BlueMoonSynergy",
+  CyberwearIntegration: "CyberwearIntegration",
 } as const;
 
 export type SkillID = (typeof SkillIDKey)[keyof typeof SkillIDKey];
