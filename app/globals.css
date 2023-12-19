@@ -57,6 +57,48 @@
   content: "";
 }
 
+.corner-cut-alt-border {
+  clip-path: polygon(
+    calc(0% + 0.75em) 0,
+    100% 0,
+    100% calc(100% - 0.75em),
+    calc(100% - 0.75em) 100%,
+    0 100%,
+    0 calc(0% + 0.75em)
+  );
+}
+.corner-cut-alt-border {
+  @apply relative border-2 border-flame-400;
+}
+.corner-cut-alt-border::before,
+.corner-cut-alt-border::after {
+  position: absolute;
+  content: "";
+  width: 0.75em;
+  height: 0.75em;
+  z-index: 1;
+}
+.corner-cut-alt-border::before {
+  top: -2px;
+  left: -2px;
+  background: linear-gradient(
+    to top left,
+    transparent calc(50% - 2px),
+    theme("colors.flame.400") 0,
+    transparent calc(50% + 1px)
+  );
+}
+.corner-cut-alt-border::after {
+  bottom: -2px;
+  right: -2px;
+  background: linear-gradient(
+    to bottom right,
+    transparent calc(50% - 2px),
+    theme("colors.flame.400") 0,
+    transparent calc(50% + 1px)
+  );
+}
+
 .corner-cut {
   min-height: 192px;
   clip-path: polygon(
@@ -87,7 +129,7 @@
 }
 
 .corner-cut-line {
-  @apply relative border border-sand-400;
+  @apply transition-all duration-300 relative border border-sand-400;
   clip-path: polygon(
     0 0,
     calc(100% - 1.5em) 0,
@@ -96,36 +138,56 @@
     1.5em 100%,
     0 calc(100% - 1.5em)
   );
+  --gradient-line: theme("colors.sand.400");
 }
 .corner-cut-line .border-b {
   @apply border-sand-400 h-12;
 }
 .corner-cut-line::before,
-.corner-cut-line::after
- {
+.corner-cut-line::after {
   position: absolute;
   content: "";
   width: 1.5em;
   height: 1.5em;
   z-index: 1;
- }
+  
+}
 .corner-cut-line::before {
   top: -1px;
   right: -1px;
   background: linear-gradient(
     to top right,
     transparent calc(50% - 2px),
-    theme('colors.sand.500') 0,
+    theme("colors.sand.400") 0,
     transparent calc(50% + 1px)
   );
 }
-.corner-cut-line::after{
+.corner-cut-line::after {
   bottom: -1px;
   left: -1px;
   background: linear-gradient(
     to bottom left,
     transparent calc(50% - 2px),
-    theme('colors.sand.500') 0,
+    var(--gradient-line) 0,
     transparent calc(50% + 1px)
   );
 }
+.corner-cut-line .bg-inner {
+ @apply transition-all duration-300 bg-gradient-to-tl from-sand-700 via-sand-600 to-sand-700 shadow-inner-lg;
+}
+/* .corner-cut-line modifiers */
+.corner-cut-line:hover .bg-inner {
+  @apply shadow-inner-2xl ;
+ }
+ .corner-cut-line.selected .bg-inner {
+   @apply from-sand-600 via-sand-500 to-sand-600;
+  }
+.corner-cut-line.selected {
+  @apply border-sand-200;
+  --gradient-line: theme("colors.sand.200");
+  --x: 50%;
+}
+.corner-cut-line.selected .border-b {
+  @apply border-sand-200;
+}
+

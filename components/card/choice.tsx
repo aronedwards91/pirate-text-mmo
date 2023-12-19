@@ -3,14 +3,16 @@ import { ReactNode } from "react";
 export function CardChoice({
   header,
   children,
+  selected
 }: {
   header: ReactNode;
   children: ReactNode;
+  selected: boolean;
 }) {
   return (
-    <div className="corner-cut-line ">
-      <div className="border-b flex items-center px-6">{header}</div>
-      <div className=" bg-gradient-to-tl from-sand-700 via-sand-600 to-sand-600">
+    <div className={`corner-cut-line ${selected && 'selected'}`}>
+      <div className="border-b flex items-center px-6 font-big font-normal tracking-widest no-prose uppercase">{header}</div>
+      <div className={`bg-inner`}>
         <div
           className="p-6 min-h-[4rem]"
           style={{

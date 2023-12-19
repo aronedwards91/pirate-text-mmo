@@ -65,6 +65,6 @@ export const backgrounds: Record<Background, BackgroundData> = {
       { skillId: SkillIDKey.Charisma, value: -5 },
       { skillId: SkillIDKey.TechMelee, value: -5 },
     ],
-    icon: "/icons/setup/background/bg-military.webp",
+    icon: "/icons/setup/background/bg-soldier.webp",
   },
 };
