@@ -237,10 +237,6 @@ export function SetupForm() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <LabelHeader text="Create your Character" />
-      <p>{background}</p>
-      <p>{charClass}</p>
-      <p>{faction}</p>
-      <p>{startArea}</p>
 
       {formSection === "background" && (
         <BackgroundOptions register={register} value={background} />

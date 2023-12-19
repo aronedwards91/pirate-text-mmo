@@ -31,7 +31,7 @@ export const startAreas: Record<StartArea, StartAreaData> = {
       FactionKey.moonsRebirth,
       FactionKey.unityParadigm,
     ],
-    icon: "",
+    icon: "icons/setup/startArea/HellasCity.webp",
   },
   [StartAreaKey.ChryseForestGlade]: {
     title: "Chryse Forest Glade",
@@ -41,7 +41,7 @@ export const startAreas: Record<StartArea, StartAreaData> = {
     description:
       "A haven for those who see the magics of the world as boon to humanity. The city was built to maximize humanities integration within the martian ecology awakened by the terraforming process. Built over an important crossing of Ley Lines, it remains a powerful place of healing and growth for those who have become in-tune with the dual moon powers.",
     factionUnlockedBy: [FactionKey.moonsRebirth],
-    icon: "",
+    icon: "icons/setup/startArea/ChryseForestGlade.webp",
   },
   [StartAreaKey.TharsisMinor7Foundry]: {
     title: "Tharsis Minor 7 - Foundry",
@@ -51,6 +51,6 @@ export const startAreas: Record<StartArea, StartAreaData> = {
     description:
       "The Huge Industrial area of Tharsis Minor is home to many powerful and important manufacturing giants. Corporate politics and underhanded games overhang a collection of Cyborg promoting collectives, the use of these capable meta-humans is a huge boon to the labour hungry  rich corporations who share this dynamic zone.",
     factionUnlockedBy: [FactionKey.churchMachine],
-    icon: "",
+    icon: "icons/setup/startArea/TharsisMinor7Foundry.webp",
   },
 };

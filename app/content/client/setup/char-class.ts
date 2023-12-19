@@ -29,7 +29,7 @@ export const charClass: Record<CharClass, CharClassData> = {
       { skillId: SkillIDKey.TechRanged, value: -5 },
       { skillId: SkillIDKey.SoftwareTech, value: -5 },
     ],
-    icon: "",
+    icon: "icons/setup/class/Cyberblade.webp",
   },
   [CharClassKey.Marksman]: {
     title: "Marksman",
@@ -44,7 +44,7 @@ export const charClass: Record<CharClass, CharClassData> = {
       { skillId: SkillIDKey.Charisma, value: -5 },
       { skillId: SkillIDKey.Rhetoric, value: -5 },
     ],
-    icon: "",
+    icon: "icons/setup/class/Marksman.webp",
   },
   [CharClassKey.TechShaman]: {
     title: "Tech Shaman",
@@ -59,6 +59,6 @@ export const charClass: Record<CharClass, CharClassData> = {
       { skillId: SkillIDKey.TechRanged, value: -5 },
       { skillId: SkillIDKey.CyberwearIntegration, value: -5 },
     ],
-    icon: "",
+    icon: "icons/setup/class/TechShaman.webp",
   },
 };
