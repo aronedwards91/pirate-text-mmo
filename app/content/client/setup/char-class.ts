@@ -1,6 +1,5 @@
 import { SkillAdjust } from "../../types";
 import { SkillIDKey } from "../attributes/skills";
-import { Faction, FactionKey } from "./faction";
 
 export type CharClassData = {
   title: string;
