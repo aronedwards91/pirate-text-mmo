@@ -7,7 +7,6 @@ export const config = {
 export async function middleware(request: NextRequest) {
 
   const { supabase, response } = createClient(request);
-  console.log('MW', request.url)
 
   // Refresh session if expired - required for Server Components
   // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
@@ -20,7 +19,6 @@ export async function middleware(request: NextRequest) {
     .from("account-data")
     .select()
     .eq('user_id', user.data.user?.id);
-    console.log('MW-data', data)
 
     const isURLTargetSetup = request.url.includes('/setup');
     const isUserSetup = (data || [])?.length > 0;

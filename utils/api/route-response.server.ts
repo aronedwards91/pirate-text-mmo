@@ -1,15 +1,19 @@
 import { PostgrestError } from "@supabase/supabase-js";
 
+type ManualError = {
+  message: string;
+};
+
 export function RouteResponse({
   error,
   data,
 }: {
-  error: PostgrestError | null;
+  error: PostgrestError | ManualError | null;
   data: any;
 }) {
   if (error) {
-    console.error("", error.message)
-    return new Response(error.message, {
+    console.error("", error.message);
+    return new Response('Server Error', {
       status: 500,
     });
   }

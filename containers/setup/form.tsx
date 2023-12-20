@@ -19,6 +19,7 @@ import {
 import { CharacterSetup } from "@/utils/form-types/setup";
 import { Regex } from "lucide-react";
 import { usernameRegex } from "@/utils/regex";
+import ROUTES from "@/utils/api-routes.const";
 
 function RadioInputCard({
   id,
@@ -252,7 +253,12 @@ export function SetupForm() {
 
   const BtnState = nextBtnStates[formSection];
 
-  const onSubmit: SubmitHandler<CharacterSetup> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<CharacterSetup> = async (data) => {
+    return await fetch(ROUTES.POST.userSetup, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  };
   const formRef = useRef();
   const nameState = getFieldState("avatar_name");
   const avatarName = watch("avatar_name");
