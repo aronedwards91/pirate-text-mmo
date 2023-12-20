@@ -9,16 +9,16 @@ import { SubmitButton } from "@/components/button/submit";
 import { CardChoice } from "@/components/card/choice";
 import { Input } from "@/components/shad/ui/input";
 import { LabelHeader } from "@/components/label/header";
-import { ReactNode, useRef, useState } from "react";
-import { useForm, SubmitHandler, UseFormRegister } from "react-hook-form";
-
-type Character = {
-  avatar_name: string;
-  background: string;
-  charClass: string;
-  faction: string;
-  startArea: string;
-};
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import {
+  useForm,
+  SubmitHandler,
+  UseFormRegister,
+  FieldErrors,
+} from "react-hook-form";
+import { CharacterSetup } from "@/utils/form-types/setup";
+import { Regex } from "lucide-react";
+import { usernameRegex } from "@/utils/regex";
 
 function RadioInputCard({
   id,
@@ -31,9 +31,9 @@ function RadioInputCard({
   img,
 }: {
   id: string;
-  sectionKey: keyof Character;
+  sectionKey: keyof CharacterSetup;
   value: string | null;
-  register: UseFormRegister<Character>;
+  register: UseFormRegister<CharacterSetup>;
   header: string;
   description: string;
   subDescription: ReactNode;
@@ -75,9 +75,11 @@ function RadioInputCard({
 function BackgroundOptions({
   value,
   register,
+  errors,
 }: {
   value: string | null;
-  register: UseFormRegister<Character>;
+  register: UseFormRegister<CharacterSetup>;
+  errors: FieldErrors<CharacterSetup>;
 }) {
   return (
     <>
@@ -86,9 +88,20 @@ function BackgroundOptions({
         <Input
           className="max-w-xs"
           placeholder="Character Name"
-          {...register("avatar_name")}
+          {...register("avatar_name", {
+            required: "name required",
+            pattern: {
+              value: usernameRegex,
+              message: "invalid name; requires 5-30 characters, only special characters are '_' & '-'",
+            },
+          })}
         />
       </div>
+      {errors.avatar_name ? (
+        <div className="text-red-500 bg-black p-2 w-min rounded whitespace-nowrap">
+          {errors.avatar_name.message}
+        </div>
+      ) : null}
       <div className="grid xl:grid-cols-2 gap-6">
         {Object.entries(backgrounds).map(([id, val]) => (
           <RadioInputCard
@@ -112,7 +125,7 @@ function CharClassOptions({
   register,
 }: {
   value: string | null;
-  register: UseFormRegister<Character>;
+  register: UseFormRegister<CharacterSetup>;
 }) {
   return (
     <div className="grid xl:grid-cols-2 gap-6">
@@ -137,7 +150,7 @@ function FactionOptions({
   register,
 }: {
   value: string | null;
-  register: UseFormRegister<Character>;
+  register: UseFormRegister<CharacterSetup>;
 }) {
   return (
     <div className="grid xl:grid-cols-2 gap-6">
@@ -168,7 +181,7 @@ function StartAreaOptions({
   register,
 }: {
   value: string | null;
-  register: UseFormRegister<Character>;
+  register: UseFormRegister<CharacterSetup>;
 }) {
   return (
     <div className="grid xl:grid-cols-2 gap-6">
@@ -232,19 +245,27 @@ export function SetupForm() {
     handleSubmit,
     watch,
     getValues,
+    getFieldState,
+    trigger,
     formState: { errors },
-  } = useForm<Character>();
+  } = useForm<CharacterSetup>();
 
   const BtnState = nextBtnStates[formSection];
 
-  const onSubmit: SubmitHandler<Character> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<CharacterSetup> = (data) => console.log(data);
   const formRef = useRef();
-
+  const nameState = getFieldState("avatar_name");
   const avatarName = watch("avatar_name");
+  useEffect(() => {
+    if(nameState.isDirty) {
+      trigger();
+    }
+  }, [avatarName]);
   const background = watch("background");
   const charClass = watch("charClass");
   const faction = watch("faction");
   const startArea = watch("startArea");
+
 
   return (
     <form
@@ -255,7 +276,11 @@ export function SetupForm() {
       <LabelHeader text="Create your Character" />
 
       {formSection === "background" && (
-        <BackgroundOptions register={register} value={background} />
+        <BackgroundOptions
+          register={register}
+          value={background}
+          errors={errors}
+        />
       )}
       {formSection === "charClass" && (
         <CharClassOptions register={register} value={charClass} />
@@ -272,10 +297,10 @@ export function SetupForm() {
 
       {formSection === "background" && (
         <InteractionButton
-          disabled={!avatarName || !background}
+          disabled={nameState.invalid || !background}
           onClick={() => setFormState(BtnState.nextView)}
         >
-          Nextx
+          Next
         </InteractionButton>
       )}
       {!(formSection === "background") && BtnState.isVisible && (

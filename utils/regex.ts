@@ -1,0 +1,1 @@
+export const usernameRegex = /^[a-z0-9_-]{5,25}$/; 
