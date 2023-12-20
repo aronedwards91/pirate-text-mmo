@@ -7,11 +7,13 @@ import { startAreas } from "@/app/content/client/setup/start-area";
 import { InteractionButton } from "@/components/button/interaction";
 import { SubmitButton } from "@/components/button/submit";
 import { CardChoice } from "@/components/card/choice";
+import { Input } from "@/components/shad/ui/input";
 import { LabelHeader } from "@/components/label/header";
 import { ReactNode, useRef, useState } from "react";
 import { useForm, SubmitHandler, UseFormRegister } from "react-hook-form";
 
 type Character = {
+  avatar_name: string;
   background: string;
   charClass: string;
   faction: string;
@@ -46,7 +48,10 @@ function RadioInputCard({
         value={id}
         {...register(sectionKey)}
       />
-      <label htmlFor={sectionKey + id} className="cursor-pointer h-full flex flex-col">
+      <label
+        htmlFor={sectionKey + id}
+        className="cursor-pointer h-full flex flex-col"
+      >
         <CardChoice header={header} selected={value === id}>
           <div className="grid grid-cols-2">
             <div className="prose">
@@ -75,21 +80,31 @@ function BackgroundOptions({
   register: UseFormRegister<Character>;
 }) {
   return (
-    <div className="grid xl:grid-cols-2 gap-6">
-      {Object.entries(backgrounds).map(([id, val]) => (
-        <RadioInputCard
-          sectionKey="background"
-          key={id}
-          id={id}
-          value={value}
-          register={register}
-          header={val.title}
-          description={val.description}
-          subDescription={<p>{val.bonuses.map((v) => v.skillId)} </p>}
-          img={val.icon}
+    <>
+      <div className="flex gap-6 items-center">
+        <label>Character Name</label>
+        <Input
+          className="max-w-xs"
+          placeholder="Character Name"
+          {...register("avatar_name")}
         />
-      ))}
-    </div>
+      </div>
+      <div className="grid xl:grid-cols-2 gap-6">
+        {Object.entries(backgrounds).map(([id, val]) => (
+          <RadioInputCard
+            sectionKey="background"
+            key={id}
+            id={id}
+            value={value}
+            register={register}
+            header={val.title}
+            description={val.description}
+            subDescription={<p>{val.bonuses.map((v) => v.skillId)} </p>}
+            img={val.icon}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 function CharClassOptions({
@@ -225,6 +240,7 @@ export function SetupForm() {
   const onSubmit: SubmitHandler<Character> = (data) => console.log(data);
   const formRef = useRef();
 
+  const avatarName = watch("avatar_name");
   const background = watch("background");
   const charClass = watch("charClass");
   const faction = watch("faction");
@@ -254,7 +270,15 @@ export function SetupForm() {
         </>
       )}
 
-      {BtnState.isVisible && (
+      {formSection === "background" && (
+        <InteractionButton
+          disabled={!avatarName || !background}
+          onClick={() => setFormState(BtnState.nextView)}
+        >
+          Nextx
+        </InteractionButton>
+      )}
+      {!(formSection === "background") && BtnState.isVisible && (
         <InteractionButton
           disabled={!getValues()[formSection]}
           onClick={() => setFormState(BtnState.nextView)}
