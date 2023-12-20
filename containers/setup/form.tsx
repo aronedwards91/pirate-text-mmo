@@ -9,7 +9,7 @@ import { SubmitButton } from "@/components/button/submit";
 import { CardChoice } from "@/components/card/choice";
 import { Input } from "@/components/shad/ui/input";
 import { LabelHeader } from "@/components/label/header";
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import {
   useForm,
   SubmitHandler,
@@ -17,9 +17,10 @@ import {
   FieldErrors,
 } from "react-hook-form";
 import { CharacterSetup } from "@/utils/form-types/setup";
-import { Regex } from "lucide-react";
 import { usernameRegex } from "@/utils/regex";
 import ROUTES from "@/utils/api-routes.const";
+import { useRouter } from "next/navigation";
+import { PAGE_ROUTES } from "@/utils/page-routes";
 
 function RadioInputCard({
   id,
@@ -93,7 +94,8 @@ function BackgroundOptions({
             required: "name required",
             pattern: {
               value: usernameRegex,
-              message: "invalid name; requires 5-30 characters, only special characters are '_' & '-'",
+              message:
+                "invalid name; requires 5-30 characters, only special characters are '_' & '-'",
             },
           })}
         />
@@ -240,6 +242,7 @@ const nextBtnStates: Record<FormSections, NextBtnState> = {
 };
 
 export function SetupForm() {
+  const [serverErr, setServerError] = useState<string | null>(null);
   const [formSection, setFormState] = useState<FormSections>("background");
   const {
     register,
@@ -250,20 +253,25 @@ export function SetupForm() {
     trigger,
     formState: { errors },
   } = useForm<CharacterSetup>();
+  const { push } = useRouter();
 
   const BtnState = nextBtnStates[formSection];
 
   const onSubmit: SubmitHandler<CharacterSetup> = async (data) => {
-    return await fetch(ROUTES.POST.userSetup, {
+    const response = await fetch(ROUTES.POST.userSetup, {
       method: "POST",
       body: JSON.stringify(data),
     });
+    if (response.status === 200) {
+      push(PAGE_ROUTES.info);
+    }
+    setServerError(`${response.statusText} - Server Error`);
   };
   const formRef = useRef();
   const nameState = getFieldState("avatar_name");
   const avatarName = watch("avatar_name");
   useEffect(() => {
-    if(nameState.isDirty) {
+    if (nameState.isDirty) {
       trigger();
     }
   }, [avatarName]);
@@ -271,7 +279,6 @@ export function SetupForm() {
   const charClass = watch("charClass");
   const faction = watch("faction");
   const startArea = watch("startArea");
-
 
   return (
     <form
@@ -297,6 +304,12 @@ export function SetupForm() {
       {formSection === "startArea" && (
         <>
           <StartAreaOptions register={register} value={startArea} />
+
+          {serverErr ? (
+            <div className="text-red-500 bg-black p-2 w-min rounded whitespace-nowrap">
+              {serverErr}
+            </div>
+          ) : null}
           <SubmitButton onClick={() => null}>Submit</SubmitButton>
         </>
       )}

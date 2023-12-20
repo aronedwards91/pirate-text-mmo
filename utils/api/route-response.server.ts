@@ -12,7 +12,7 @@ export function RouteResponse({
   data: any;
 }) {
   if (error) {
-    console.error("", error.message);
+    console.error("Svr Err", error);
     return new Response('Server Error', {
       status: 500,
     });
