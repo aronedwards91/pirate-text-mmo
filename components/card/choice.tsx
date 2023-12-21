@@ -7,7 +7,7 @@ export function CardChoice({
 }: {
   header: ReactNode;
   children: ReactNode;
-  selected: boolean;
+  selected?: boolean;
 }) {
   return (
     <div className={`corner-cut-line flex-1 flex flex-col ${selected && 'selected'}`}>
