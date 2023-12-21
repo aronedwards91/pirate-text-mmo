@@ -1,9 +1,9 @@
 "use client";
 
-import { backgrounds } from "@/app/content/client/setup/background";
-import { charClass } from "@/app/content/client/setup/char-class";
-import { factions } from "@/app/content/client/setup/faction";
-import { startAreas } from "@/app/content/client/setup/start-area";
+import { backgrounds } from "@/content/client/setup/background";
+import { charClass } from "@/content/client/setup/char-class";
+import { factions } from "@/content/client/setup/faction";
+import { startAreas } from "@/content/client/setup/start-area";
 import { InteractionButton } from "@/components/button/interaction";
 import { SubmitButton } from "@/components/button/submit";
 import { CardChoice } from "@/components/card/choice";

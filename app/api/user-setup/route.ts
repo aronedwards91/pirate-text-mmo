@@ -1,7 +1,7 @@
-import { SkillID } from "@/app/content/client/attributes/skills";
-import { backgrounds } from "@/app/content/client/setup/background";
-import { charClass } from "@/app/content/client/setup/char-class";
-import { SkillAdjust } from "@/app/content/types";
+import { SkillID } from "@/content/client/attributes/skills";
+import { backgrounds } from "@/content/client/setup/background";
+import { charClass } from "@/content/client/setup/char-class";
+import { SkillAdjust } from "@/content/types";
 import { RouteResponse } from "@/utils/api/route-response.server";
 import { CharacterSetup, characterSetupTest } from "@/utils/form-types/setup";
 import { nextXPFromLvl } from "@/utils/progress/skill-xp";

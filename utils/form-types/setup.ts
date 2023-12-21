@@ -1,10 +1,10 @@
 import {
   Background,
   BackgroundKey,
-} from "@/app/content/client/setup/background";
-import { CharClass, CharClassKey } from "@/app/content/client/setup/char-class";
-import { Faction, FactionKey } from "@/app/content/client/setup/faction";
-import { StartArea, StartAreaKey } from "@/app/content/client/setup/start-area";
+} from "@/content/client/setup/background";
+import { CharClass, CharClassKey } from "@/content/client/setup/char-class";
+import { Faction, FactionKey } from "@/content/client/setup/faction";
+import { StartArea, StartAreaKey } from "@/content/client/setup/start-area";
 import { usernameRegex } from "../regex";
 
 export type CharacterSetup = {
