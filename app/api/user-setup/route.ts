@@ -6,6 +6,7 @@ import { RouteResponse } from "@/utils/api/route-response.server";
 import { CharacterSetup, characterSetupTest } from "@/utils/form-types/setup";
 import { nextXPFromLvl } from "@/utils/progress/skill-xp";
 import { createClient } from "@/utils/supabase/server";
+import { TableSkills, TableXPSkills } from "@/utils/table-types/skills";
 import { cookies } from "next/headers";
 
 declare global {
@@ -36,21 +37,6 @@ const BaseStartingSkillLevels: SkillIDVals = {
   BlueMoonSynergy: BASE_SKILL_LVL,
   CyberwearIntegration: BASE_SKILL_LVL,
 };
-type TableSkills =
-  | "tech_melee"
-  | "trad_melee"
-  | "strength"
-  | "tech_ranged"
-  | "trad_ranged"
-  | "reflexes"
-  | "hardware_tech"
-  | "software_tech"
-  | "rhetoric"
-  | "charisma"
-  | "intimidation"
-  | "red_moon_harmony"
-  | "blue_moon_synergy"
-  | "cyberwear_integration";
 type SkillIDTableKey = Record<SkillID, TableSkills>;
 const TableSkillMap: SkillIDTableKey = {
   TechMelee: "tech_melee",
@@ -68,7 +54,7 @@ const TableSkillMap: SkillIDTableKey = {
   BlueMoonSynergy: "blue_moon_synergy",
   CyberwearIntegration: "cyberwear_integration",
 } as const;
-const TableSkillXPMap = {
+const TableSkillXPMap: Record<SkillID, TableXPSkills> = {
   TechMelee: "xp_tech_melee",
   TradMelee: "xp_trad_melee",
   Strength: "xp_strength",

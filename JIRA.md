@@ -1,8 +1,8 @@
 ### In Prog
-- basic opportunity flow
+- limit auth requests on middleware
 
 ### TO DO
-- character data page
+- basic opportunity completetion
 - character info sidebar
 - Actions Poool
 - opportunity, get trinkets
@@ -10,6 +10,7 @@
 - Equipment
 - Travel
 - Opportunity Progress
+- order skills by xp
 
 ### Ice Box
 
