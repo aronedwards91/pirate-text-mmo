@@ -1,6 +1,7 @@
 import CardSection from "@/components/card/CardSection";
 import { CardSM } from "@/components/card/card-sm";
 import { SkillID, skills } from "@/content/client/attributes/skills";
+import { Currency } from "@/content/client/currency";
 import { XP_GRAPH, nextXPFromLvl } from "@/utils/progress/skill-xp";
 import { createClient } from "@/utils/supabase/server";
 import { SkillsTable } from "@/utils/table-types/skills";
@@ -14,6 +15,7 @@ type UserData = {
   charClass: string;
   background: string;
   skills: Record<SkillsTable, number>;
+  currency: Record<Currency, number>;
 };
 type Response = {
   data: UserData;
@@ -29,7 +31,7 @@ async function getUserData({
 
   const user = await supabase.auth.getUser();
 
-  const [userData, location, charClass, skills] = await Promise.all([
+  const [userData, location, charClass, skills, currency] = await Promise.all([
     await supabase
       .from("account-data")
       .select(`avatar_name, faction, background`)
@@ -54,7 +56,12 @@ async function getUserData({
       .eq("user_id", user.data.user?.id)
       .limit(1)
       .single(),
-    supabase.auth.getUser(),
+    await supabase
+      .from("currency")
+      .select(`*`)
+      .eq("user_id", user.data.user?.id)
+      .limit(1)
+      .single(),
   ]);
 
   return {
@@ -64,8 +71,14 @@ async function getUserData({
       background: userData.data?.background,
       charClass: charClass.data?.class,
       skills: skills.data,
+      currency: currency.data,
     },
-    error: userData.error || location.error || charClass.error || skills.error,
+    error:
+      userData.error ||
+      location.error ||
+      charClass.error ||
+      skills.error ||
+      currency.error,
   };
 }
 
@@ -91,7 +104,8 @@ function Skill({
     <li>
       <CardSM>
         <h5 className="">
-          {SkillData.label} :: Lvl <span className="font-bold text-lg">{skillLvl}</span> / 200
+          {SkillData.label} :: Lvl{" "}
+          <span className="font-bold text-lg">{skillLvl}</span> / 200
         </h5>
         <div className="flex justify-between min-w-[24rem] text-xs text-slate-700">
           <span>{nextXPFromLvl(skillLvl - 1)}</span>
@@ -117,6 +131,7 @@ export default async function UserInfoPage() {
     console.error(playerData.error.message);
   }
   const user = playerData.data;
+  console.log("user", user);
 
   return (
     <div className="flex flex-col container">
@@ -130,6 +145,9 @@ export default async function UserInfoPage() {
         <h4>Faction: {user.faction}</h4>
         <h4>Background: {user.background}</h4>
         <h4>Class: {user.charClass}</h4>
+
+        <h5>Red Chits: {user.currency?.RED_CHIT}</h5>
+        <h5>Black Marks: {user.currency?.BLACK_MARK}</h5>
       </div>
       <ul className="flex flex-col gap-3 list-none max-w-md">
         <Skill

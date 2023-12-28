@@ -1,8 +1,8 @@
 ### In Prog
-- limit auth requests on middleware
+- basic opportunity completetion
 
 ### TO DO
-- basic opportunity completetion
+- limit auth requests on middleware
 - character info sidebar
 - Actions Poool
 - opportunity, get trinkets

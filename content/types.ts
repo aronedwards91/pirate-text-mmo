@@ -7,6 +7,7 @@ export type SkillAdjust = {
 
 // drop chance /1000
 export type Opportunity = {
+  id: string;
   title: string;
   location: string; // Place
   difficulty_tier: number;

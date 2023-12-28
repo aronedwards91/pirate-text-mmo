@@ -2,6 +2,8 @@
 
 import { CardChoice } from "@/components/card/choice";
 import { Opportunity } from "@/content/types";
+import ROUTES from "@/utils/api-routes.const";
+import { OpportunityForm } from "@/utils/form-types/opportunity";
 import {
   ActivitySquareIcon,
   CoinsIcon,
@@ -16,17 +18,32 @@ export function Opportunities({
 }: {
   opportunities: Opportunity[];
 }) {
+  
+  async function onAction(input: OpportunityForm) {
+    const response = await fetch(ROUTES.POST.opportunity, {
+      method: "POST",
+      body: JSON.stringify(input),
+    });
+    const out = await response.json()
+
+    console.log('response', out)
+  }
+
   return (
     <div className="flex flex-col gap-6 max-w-xl">
       {opportunities.map((opp) => (
         <CardChoice
+          key={opp.title}
           header={
             <div className="flex flex-1 justify-between items-center">
               <h3>{opp.title}</h3>
               <div className="flex gap-3 items-center">
                 <ActivitySquareIcon size={16} />
                 <h6>{opp.action_power_cost}</h6>
-                <button className="bg-rust-800 text-white p-4">
+                <button
+                  className="bg-rust-800 text-white p-4"
+                  onClick={() => onAction({ id: opp.id })}
+                >
                   <PlaySquareIcon />
                 </button>
               </div>

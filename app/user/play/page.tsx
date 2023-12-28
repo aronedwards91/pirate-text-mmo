@@ -53,6 +53,7 @@ async function getData({ cookieData }: { cookieData: ReadonlyRequestCookies }) {
 export default async function PlayPage() {
   const cookieData = cookies();
   const result = await getData({ cookieData });
+
   
   return (
     <div className="flex flex-col gap-6">

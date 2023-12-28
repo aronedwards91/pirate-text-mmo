@@ -159,6 +159,7 @@ export async function POST(request: Request) {
         })
         .eq("user_id", user.data.user?.id)
         .select(),
+        // TODO add currency
     ]);
 
     if (!charClassResp.error && !locationResp.error && !skillsResp.error) {
